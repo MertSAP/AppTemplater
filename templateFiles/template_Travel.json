@@ -1,0 +1,853 @@
+{
+    "Services": [
+        {
+            "ServiceTechnicalName": "Travel",
+            "ServiceName": "Travel",
+            "ServiceNamePlural": "Travels",
+            "ServiceNamespace": "my.travel",
+            "to_Entity": [
+                {
+                    "EntityTechnicalName": "Airport",
+                    "EntityName": "Airport",
+                    "EntityNamePlural": "Airports",
+                    "EntityHasDeterminations": null,
+                    "EntityGenerateDataFile": null,
+                    "EntityHasValidations": null,
+                    "EntityVirtual": false,
+                    "EntityMasterData": true,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "AirportID",
+                            "FieldLabel": "Airport ID",
+                            "FieldLength": "3",
+                            "FieldisKey": true,
+                            "FieldLineDisplay": null,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": null,
+                            "FieldType": "String",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "Name",
+                            "FieldLabel": "Name",
+                            "FieldLength": "40",
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": null,
+                            "FieldType": "String",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "City",
+                            "FieldLabel": "City",
+                            "FieldLength": "40",
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": null,
+                            "FieldType": "String",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "CountryCode",
+                            "FieldLabel": "Country Code",
+                            "FieldLength": null,
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 4,
+                            "FieldVirtual": null,
+                            "FieldType": "Country",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        }
+                    ],
+                    "to_Facet": [],
+                    "to_ValueHelp": [],
+                    "to_Action": [],
+                    "EntityParentRelationships": [],
+                    "EntityChildRelationships": []
+                },
+                {
+                    "EntityTechnicalName": "FlightConnection",
+                    "EntityName": "FlightConnection",
+                    "EntityNamePlural": "FlightConnections",
+                    "EntityHasDeterminations": null,
+                    "EntityGenerateDataFile": null,
+                    "EntityHasValidations": null,
+                    "EntityVirtual": false,
+                    "EntityMasterData": true,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "FlightConnectionUUID",
+                            "FieldLabel": "Flight Connection UUID",
+                            "FieldLength": null,
+                            "FieldisKey": true,
+                            "FieldLineDisplay": null,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": null,
+                            "FieldType": "UUID",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "ConnectionID",
+                            "FieldLabel": "Connection ID",
+                            "FieldLength": "4",
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": null,
+                            "FieldType": "String",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "DepartureTime",
+                            "FieldLabel": "Departure Time",
+                            "FieldLength": null,
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": null,
+                            "FieldType": "Time",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "ArrivalTime",
+                            "FieldLabel": "Arrival Time",
+                            "FieldLength": null,
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 4,
+                            "FieldVirtual": null,
+                            "FieldType": "Time",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "Distance",
+                            "FieldLabel": "Distance",
+                            "FieldLength": null,
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 5,
+                            "FieldVirtual": null,
+                            "FieldType": "Integer",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "DistanceUnit",
+                            "FieldLabel": "Distance Unit",
+                            "FieldLength": "3",
+                            "FieldisKey": null,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": null,
+                            "FieldReadOnly": null,
+                            "FieldisSelectionField": null,
+                            "FieldSortOrder": 6,
+                            "FieldVirtual": null,
+                            "FieldType": "String",
+                            "InputTypeCode": "Optional",
+                            "Facet": null
+                        }
+                    ],
+                    "to_Facet": [],
+                    "to_ValueHelp": [
+                        {
+                            "ValueHelpTechnicalName": "DepartureAirport",
+                            "ValueHelpLabel": "Departure Airport",
+                            "ValueHelpSortOrder": 7,
+                            "ValueHelpLineDisplay": true,
+                            "ValueHelpDetailDisplay": false,
+                            "InputTypeCode": "Optional",
+                            "ValueHelpEntity": {
+                                "EntityTechnicalName": "Airport",
+                                "KeyField": "AirportID"
+                            },
+                            "ValueHelpTextField": {
+                                "FieldTechnicalName": "Name"
+                            },
+                            "Facet": null
+                        },
+                        {
+                            "ValueHelpTechnicalName": "DestinationAirport",
+                            "ValueHelpLabel": "Destination Airport",
+                            "ValueHelpSortOrder": 8,
+                            "ValueHelpLineDisplay": true,
+                            "ValueHelpDetailDisplay": false,
+                            "InputTypeCode": "Optional",
+                            "ValueHelpEntity": {
+                                "EntityTechnicalName": "Airport",
+                                "KeyField": "AirportID"
+                            },
+                            "ValueHelpTextField": {
+                                "FieldTechnicalName": "Name"
+                            },
+                            "Facet": null
+                        }
+                    ],
+                    "to_Action": [],
+                    "EntityParentRelationships": [],
+                    "EntityChildRelationships": [
+                        {
+                            "EntityTechnicalName": "Airline",
+                            "Type": "Many"
+                        }
+                    ]
+                },
+                {
+                    "EntityTechnicalName": "Travel",
+                    "EntityName": "Travel",
+                    "EntityNamePlural": "Travels",
+                    "EntityHasDeterminations": true,
+                    "EntityGenerateDataFile": false,
+                    "EntityHasValidations": false,
+                    "EntityVirtual": false,
+                    "EntityMasterData": false,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "TravelUUID",
+                            "FieldLabel": "Travel UUID",
+                            "FieldLength": null,
+                            "FieldisKey": true,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": false,
+                            "FieldType": "UUID",
+                            "InputTypeCode": "Hidden",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "TravelID",
+                            "FieldLabel": "Travel ID",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": true,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": false,
+                            "FieldType": "Integer",
+                            "InputTypeCode": "AutoIncrement",
+                            "Facet": {
+                                "FacetTechnicalName": "TravelData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "BeginDate",
+                            "FieldLabel": "Begin Date",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": true,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": false,
+                            "FieldType": "Date",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "DateData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "EndDate",
+                            "FieldLabel": "End Date",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": true,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 4,
+                            "FieldVirtual": false,
+                            "FieldType": "Date",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "DateData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "BookingFee",
+                            "FieldLabel": "Booking Fee",
+                            "FieldLength": "16,3",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 5,
+                            "FieldVirtual": false,
+                            "FieldType": "Decimal",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "PriceData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "TotalPrice",
+                            "FieldLabel": "Total Price",
+                            "FieldLength": "16,3",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 6,
+                            "FieldVirtual": false,
+                            "FieldType": "Decimal",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": {
+                                "FacetTechnicalName": "PriceData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "CurrencyCode",
+                            "FieldLabel": "Currency Code",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 7,
+                            "FieldVirtual": false,
+                            "FieldType": "Currency",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "PriceData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "Description",
+                            "FieldLabel": "Description",
+                            "FieldLength": "1024",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 8,
+                            "FieldVirtual": false,
+                            "FieldType": "String",
+                            "InputTypeCode": "Optional",
+                            "Facet": {
+                                "FacetTechnicalName": "TravelData"
+                            }
+                        }
+                    ],
+                    "to_Facet": [
+                        {
+                            "FacetTechnicalName": "TravelData",
+                            "FacetSortOrder": 1,
+                            "FacetLabel": "General Information"
+                        },
+                        {
+                            "FacetTechnicalName": "DateData",
+                            "FacetSortOrder": 2,
+                            "FacetLabel": "Dates"
+                        },
+                        {
+                            "FacetTechnicalName": "PriceData",
+                            "FacetSortOrder": 3,
+                            "FacetLabel": "Prices"
+                        }
+                    ],
+                    "to_ValueHelp": [],
+                    "to_Action": [],
+                    "EntityParentRelationships": [],
+                    "EntityChildRelationships": [
+                        {
+                            "EntityTechnicalName": "Booking",
+                            "Type": "Many"
+                        }
+                    ]
+                },
+                {
+                    "EntityTechnicalName": "Airline",
+                    "EntityName": "Airline",
+                    "EntityNamePlural": "Airlines",
+                    "EntityHasDeterminations": false,
+                    "EntityGenerateDataFile": false,
+                    "EntityHasValidations": false,
+                    "EntityVirtual": false,
+                    "EntityMasterData": true,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "AirlineID",
+                            "FieldLabel": "Airline ID",
+                            "FieldLength": "3",
+                            "FieldisKey": true,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": false,
+                            "FieldType": "String",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "Name",
+                            "FieldLabel": "Name",
+                            "FieldLength": "40",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": false,
+                            "FieldType": "String",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "CurrencyCode",
+                            "FieldLabel": "Currency Code",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": false,
+                            "FieldType": "Currency",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "AirlinePicURL",
+                            "FieldLabel": "Airline Pic URL",
+                            "FieldLength": "40",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 4,
+                            "FieldVirtual": false,
+                            "FieldType": "String",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": null
+                        }
+                    ],
+                    "to_Facet": [],
+                    "to_ValueHelp": [],
+                    "to_Action": [],
+                    "EntityParentRelationships": [
+                        {
+                            "EntityTechnicalName": "FlightConnection",
+                            "KeyFieldTechnicalName": "FlightConnectionUUID"
+                        }
+                    ],
+                    "EntityChildRelationships": []
+                },
+                {
+                    "EntityTechnicalName": "BookingSupplement",
+                    "EntityName": "BookingSupplement",
+                    "EntityNamePlural": "Booking Supplements",
+                    "EntityHasDeterminations": false,
+                    "EntityGenerateDataFile": true,
+                    "EntityHasValidations": true,
+                    "EntityVirtual": false,
+                    "EntityMasterData": false,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "BookSupplUUID",
+                            "FieldLabel": "Book Suppl UUID",
+                            "FieldLength": null,
+                            "FieldisKey": true,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": false,
+                            "FieldType": "UUID",
+                            "InputTypeCode": "Hidden",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "BookingSupplementID",
+                            "FieldLabel": "Booking Supplement ID",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": false,
+                            "FieldType": "Integer",
+                            "InputTypeCode": "AutoIncrement",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "Price",
+                            "FieldLabel": "Price",
+                            "FieldLength": "16,3",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": false,
+                            "FieldType": "Decimal",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "CurrencyCode",
+                            "FieldLabel": "Currency Code",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 4,
+                            "FieldVirtual": false,
+                            "FieldType": "Currency",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": null
+                        }
+                    ],
+                    "to_Facet": [],
+                    "to_ValueHelp": [],
+                    "to_Action": [
+                        {
+                            "ActionTechnicalName": "dedeuctDiscount",
+                            "ActionLabel": "Deduct Discount",
+                            "ActionSortOrder": 1,
+                            "to_ActionParameter": [
+                                {
+                                    "ActionParameterTechnicalName": "percentage",
+                                    "ActionParameterLabel": "Percentage",
+                                    "ActionParameterSortOrder": 1,
+                                    "FieldType": "Integer"
+                                }
+                            ]
+                        }
+                    ],
+                    "EntityParentRelationships": [
+                        {
+                            "EntityTechnicalName": "Booking",
+                            "KeyFieldTechnicalName": "BookingUUID"
+                        }
+                    ],
+                    "EntityChildRelationships": []
+                },
+                {
+                    "EntityTechnicalName": "Booking",
+                    "EntityName": "Booking",
+                    "EntityNamePlural": "Bookings",
+                    "EntityHasDeterminations": true,
+                    "EntityGenerateDataFile": true,
+                    "EntityHasValidations": false,
+                    "EntityVirtual": false,
+                    "EntityMasterData": false,
+                    "to_Field": [
+                        {
+                            "FieldTechnicalName": "BookingUUID",
+                            "FieldLabel": "Booking UUID",
+                            "FieldLength": null,
+                            "FieldisKey": true,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": false,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 1,
+                            "FieldVirtual": false,
+                            "FieldType": "UUID",
+                            "InputTypeCode": "Hidden",
+                            "Facet": null
+                        },
+                        {
+                            "FieldTechnicalName": "BookingID",
+                            "FieldLabel": "Booking ID",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 2,
+                            "FieldVirtual": false,
+                            "FieldType": "Integer",
+                            "InputTypeCode": "AutoIncrement",
+                            "Facet": {
+                                "FacetTechnicalName": "FlightData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "BookingDate",
+                            "FieldLabel": "Booking Date",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 3,
+                            "FieldVirtual": false,
+                            "FieldType": "Date",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "FlightData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "FlightDate",
+                            "FieldLabel": "Flight Date",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 5,
+                            "FieldVirtual": false,
+                            "FieldType": "Date",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "BookingData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "FlightPrice",
+                            "FieldLabel": "Flight Price",
+                            "FieldLength": "16,3",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 6,
+                            "FieldVirtual": false,
+                            "FieldType": "Decimal",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "BookingData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "CurrencyCode",
+                            "FieldLabel": "Currency Code",
+                            "FieldLength": null,
+                            "FieldisKey": false,
+                            "FieldLineDisplay": false,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": false,
+                            "FieldSortOrder": 7,
+                            "FieldVirtual": false,
+                            "FieldType": "Currency",
+                            "InputTypeCode": "Mandatory",
+                            "Facet": {
+                                "FacetTechnicalName": "BookingData"
+                            }
+                        },
+                        {
+                            "FieldTechnicalName": "BookingStatus",
+                            "FieldLabel": "Booking Status",
+                            "FieldLength": "10",
+                            "FieldisKey": false,
+                            "FieldLineDisplay": true,
+                            "FieldDetailDisplay": true,
+                            "FieldReadOnly": false,
+                            "FieldisSelectionField": true,
+                            "FieldSortOrder": 8,
+                            "FieldVirtual": false,
+                            "FieldType": "String",
+                            "InputTypeCode": "ReadOnly",
+                            "Facet": {
+                                "FacetTechnicalName": "FlightData"
+                            }
+                        }
+                    ],
+                    "to_Facet": [
+                        {
+                            "FacetTechnicalName": "FlightData",
+                            "FacetSortOrder": 1,
+                            "FacetLabel": "Flight Data"
+                        },
+                        {
+                            "FacetTechnicalName": "BookingData",
+                            "FacetSortOrder": 2,
+                            "FacetLabel": "Booking Data"
+                        }
+                    ],
+                    "to_ValueHelp": [
+                        {
+                            "ValueHelpTechnicalName": "Carrier",
+                            "ValueHelpLabel": "Carrier",
+                            "ValueHelpSortOrder": 1,
+                            "ValueHelpLineDisplay": true,
+                            "ValueHelpDetailDisplay": true,
+                            "InputTypeCode": "Optional",
+                            "ValueHelpEntity": {
+                                "EntityTechnicalName": "Airline",
+                                "KeyField": "AirlineID"
+                            },
+                            "ValueHelpTextField": {
+                                "FieldTechnicalName": "Name"
+                            },
+                            "Facet": {
+                                "FacetTechnicalName": "FlightData"
+                            }
+                        },
+                        {
+                            "ValueHelpTechnicalName": "ConnectionID",
+                            "ValueHelpLabel": "Connection ID",
+                            "ValueHelpSortOrder": 4,
+                            "ValueHelpLineDisplay": null,
+                            "ValueHelpDetailDisplay": true,
+                            "InputTypeCode": "Mandatory",
+                            "ValueHelpEntity": {
+                                "EntityTechnicalName": "FlightConnection",
+                                "KeyField": "FlightConnectionUUID"
+                            },
+                            "ValueHelpTextField": {
+                                "FieldTechnicalName": "ConnectionID"
+                            },
+                            "Facet": {
+                                "FacetTechnicalName": "BookingData"
+                            }
+                        }
+                    ],
+                    "to_Action": [],
+                    "EntityParentRelationships": [
+                        {
+                            "EntityTechnicalName": "Travel",
+                            "KeyFieldTechnicalName": "TravelUUID"
+                        }
+                    ],
+                    "EntityChildRelationships": [
+                        {
+                            "EntityTechnicalName": "BookingSupplement",
+                            "Type": "Many"
+                        }
+                    ]
+                }
+            ],
+            "to_ServiceRole": [
+                {
+                    "RoleTechnicalName": "TravelViewer",
+                    "RoleLabel": "Travel Viewer",
+                    "RoleLocalUser": "view@t.com",
+                    "RoleLocalPassword": "initial",
+                    "to_ServiceAuth": [
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "READ",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Travel"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "READ",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "BookingSupplement"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "READ",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Booking"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "READ",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Airline"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "RoleTechnicalName": "TravelAdmin",
+                    "RoleLabel": "Travel Admin",
+                    "RoleLocalUser": "admin@t.com",
+                    "RoleLocalPassword": "initial",
+                    "to_ServiceAuth": [
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "*",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "BookingSupplement"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "*",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Travel"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "*",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Booking"
+                            }
+                        },
+                        {
+                            "AuthCascade": null,
+                            "AuthType": "*",
+                            "AuthEntity": {
+                                "EntityTechnicalName": "Airline"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "version": "1.0.0",
+    "genenerator": "apptemplater",
+    "repository": "<Add your repository here>"
+}

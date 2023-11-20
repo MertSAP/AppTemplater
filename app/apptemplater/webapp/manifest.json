@@ -1,0 +1,217 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "mert.AppTemplater.UI.apptemplater",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.10.1",
+      "toolsId": "4d077335-1d27-4653-80a5-8a5bc5dde938"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/processor/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.115.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "mert.AppTemplater.UI.apptemplater.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ServiceList",
+          "target": "ServiceList"
+        },
+        {
+          "pattern": "Service({key}):?query:",
+          "name": "ServiceObjectPage",
+          "target": "ServiceObjectPage"
+        },
+        {
+          "pattern": "Service({key})/to_Entity({key2}):?query:",
+          "name": "EntityObjectPage",
+          "target": "EntityObjectPage"
+        },
+        {
+          "pattern": "Service({key})/to_Entity({key2})/to_Action({key3}):?query:",
+          "name": "ActionObjectPage",
+          "target": "ActionObjectPage"
+        },
+        {
+          "pattern": "Service({key})/to_ServiceRole({key2}):?query:",
+          "name": "RoleObjectPage",
+          "target": "RoleObjectPage"
+        }
+		
+      ],
+      "targets": {
+        "ServiceList": {
+          "type": "Component",
+          "id": "ServiceList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Service",
+              "variantManagement": "Page",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                    "actions": {
+                        "MenuActions": {
+                            "text": "Menu",
+                            "menu": [
+                                "DataFieldForAction::service1.changeCriticality",
+                                "DataFieldForAction::service1.EntityContainer::unboundAction"
+                            ]
+                        }
+                    }
+                }
+            },
+              "navigation": {
+                "Service": {
+                  "detail": {
+                    "route": "ServiceObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ServiceObjectPage": {
+          "type": "Component",
+          "id": "ServiceObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "Service",
+              "navigation": {
+                "to_Entity": {
+                  "detail": {
+                    "route": "EntityObjectPage"
+                  }
+                },"to_ServiceRole": {
+                  "detail": {
+                    "route": "RoleObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "EntityObjectPage": {
+          "type": "Component",
+          "id": "EntityObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "Entity",
+              "navigation": {
+                "to_Action": {
+                  "detail": {
+                    "route": "ActionObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ActionObjectPage": {
+          "type": "Component",
+          "id": "ActionObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "Action"
+            }
+          }
+        },
+        "RoleObjectPage": {
+          "type": "Component",
+          "id": "RoleObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "ServiceRole"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

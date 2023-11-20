@@ -1,0 +1,3 @@
+AuthorisationType;AuthorisationTypeName;
+READ;Read;
+*;Write;

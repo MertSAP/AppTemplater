@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="AppTemplaterService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Service" EntityType="AppTemplaterService.Service">
+                    <NavigationPropertyBinding Path="to_Entity" Target="Entity"/>
+                    <NavigationPropertyBinding Path="to_Association" Target="Association"/>
+                </EntitySet>
+                <EntitySet Name="Action" EntityType="AppTemplaterService.Action">
+                    <NavigationPropertyBinding Path="to_Entity" Target="Entity"/>
+                </EntitySet>
+                <EntitySet Name="Field" EntityType="AppTemplaterService.Field">
+                    <NavigationPropertyBinding Path="FieldType" Target="FieldType"/>
+                    <NavigationPropertyBinding Path="InputType" Target="InputType"/>
+                    <NavigationPropertyBinding Path="Facet" Target="Facet"/>
+                    <NavigationPropertyBinding Path="to_Entity" Target="Entity"/>
+                    <NavigationPropertyBinding Path="to_Service" Target="Service"/>
+                </EntitySet>
+                <EntitySet Name="AssociationType" EntityType="AppTemplaterService.AssociationType"/>
+                <EntitySet Name="FieldType" EntityType="AppTemplaterService.FieldType"/>
+                <EntitySet Name="InputType" EntityType="AppTemplaterService.InputType"/>
+                <EntitySet Name="FieldByService" EntityType="AppTemplaterService.FieldByService"/>
+                <EntitySet Name="Entity" EntityType="AppTemplaterService.Entity">
+                    <NavigationPropertyBinding Path="EntityTitleDisplay" Target="Field"/>
+                    <NavigationPropertyBinding Path="EntityDescriptionDisplay" Target="Field"/>
+                    <NavigationPropertyBinding Path="to_Service" Target="Service"/>
+                    <NavigationPropertyBinding Path="to_Field" Target="Field"/>
+                    <NavigationPropertyBinding Path="to_Action" Target="Action"/>
+                    <NavigationPropertyBinding Path="to_Facet" Target="Facet"/>
+                    <NavigationPropertyBinding Path="to_ValueHelp" Target="ValueHelp"/>
+                </EntitySet>
+                <EntitySet Name="Association" EntityType="AppTemplaterService.Association">
+                    <NavigationPropertyBinding Path="AssociationChildEntity" Target="Entity"/>
+                    <NavigationPropertyBinding Path="AssociationParentEntity" Target="Entity"/>
+                    <NavigationPropertyBinding Path="AssociationType" Target="AssociationType"/>
+                    <NavigationPropertyBinding Path="to_Service" Target="Service"/>
+                </EntitySet>
+                <EntitySet Name="Facet" EntityType="AppTemplaterService.Facet">
+                    <NavigationPropertyBinding Path="to_Entity" Target="Entity"/>
+                </EntitySet>
+                <EntitySet Name="ValueHelp" EntityType="AppTemplaterService.ValueHelp">
+                    <NavigationPropertyBinding Path="ValueHelpEntity" Target="Entity"/>
+                    <NavigationPropertyBinding Path="ValueHelpTextField" Target="Field"/>
+                    <NavigationPropertyBinding Path="InputType" Target="InputType"/>
+                    <NavigationPropertyBinding Path="Facet" Target="Facet"/>
+                    <NavigationPropertyBinding Path="to_Entity" Target="Entity"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Service">
+                <Key>
+                    <PropertyRef Name="ServiceUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ServiceUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ServiceTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceNamePlural" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceNamespace" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceFioriModuleName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceFioriTitle" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ServiceFioriMainNode" Type="Edm.String" MaxLength="30"/>
+                <NavigationProperty Name="to_Entity" Type="Collection(AppTemplaterService.Entity)" Partner="to_Service">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="to_Association" Type="Collection(AppTemplaterService.Association)" Partner="to_Service">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Action">
+                <Key>
+                    <PropertyRef Name="ActionUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ActionUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ActionTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ActionLabel" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ActionSortOrder" Type="Edm.Int32"/>
+                <NavigationProperty Name="to_Entity" Type="AppTemplaterService.Entity" Partner="to_Action">
+                    <ReferentialConstraint Property="to_Entity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Entity_EntityUUID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Field">
+                <Key>
+                    <PropertyRef Name="FieldUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="FieldUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="FieldTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="FieldLabel" Type="Edm.String" MaxLength="30"/>
+                <Property Name="FieldLength" Type="Edm.String" MaxLength="5"/>
+                <Property Name="FieldisKey" Type="Edm.Boolean"/>
+                <Property Name="FieldLineDisplay" Type="Edm.Boolean"/>
+                <Property Name="FieldDetailDisplay" Type="Edm.Boolean"/>
+                <Property Name="FieldReadOnly" Type="Edm.Boolean"/>
+                <Property Name="FieldisSelectionField" Type="Edm.Boolean"/>
+                <Property Name="FieldSortOrder" Type="Edm.Int32"/>
+                <NavigationProperty Name="FieldType" Type="AppTemplaterService.FieldType">
+                    <ReferentialConstraint Property="FieldType_TypeCode" ReferencedProperty="TypeCode"/>
+                </NavigationProperty>
+                <Property Name="FieldType_TypeCode" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="InputType" Type="AppTemplaterService.InputType">
+                    <ReferentialConstraint Property="InputType_InputTypeCode" ReferencedProperty="InputTypeCode"/>
+                </NavigationProperty>
+                <Property Name="InputType_InputTypeCode" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="Facet" Type="AppTemplaterService.Facet">
+                    <ReferentialConstraint Property="Facet_FacetUUID" ReferencedProperty="FacetUUID"/>
+                </NavigationProperty>
+                <Property Name="Facet_FacetUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="to_Entity" Type="AppTemplaterService.Entity" Partner="to_Field">
+                    <ReferentialConstraint Property="to_Entity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Entity_EntityUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="to_Service" Type="AppTemplaterService.Service">
+                    <ReferentialConstraint Property="to_Service_ServiceUUID" ReferencedProperty="ServiceUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Service_ServiceUUID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="AssociationType">
+                <Key>
+                    <PropertyRef Name="AssociationType"/>
+                </Key>
+                <Property Name="AssociationType" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="AssociationTypeDescription" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="FieldType">
+                <Key>
+                    <PropertyRef Name="TypeCode"/>
+                </Key>
+                <Property Name="TypeCode" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="TypeName" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="InputType">
+                <Key>
+                    <PropertyRef Name="InputTypeCode"/>
+                </Key>
+                <Property Name="InputTypeCode" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="InputTypeCodeName" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="FieldByService">
+                <Key>
+                    <PropertyRef Name="FieldUUID"/>
+                </Key>
+                <Property Name="FieldUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="FieldTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="EntityTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="to_Service_ServiceUUID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Entity">
+                <Key>
+                    <PropertyRef Name="EntityUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="EntityUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="EntityTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="EntityName" Type="Edm.String" MaxLength="30"/>
+                <Property Name="EntityNamePlural" Type="Edm.String" MaxLength="30"/>
+                <NavigationProperty Name="EntityTitleDisplay" Type="AppTemplaterService.Field">
+                    <ReferentialConstraint Property="EntityTitleDisplay_FieldUUID" ReferencedProperty="FieldUUID"/>
+                </NavigationProperty>
+                <Property Name="EntityTitleDisplay_FieldUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="EntityDescriptionDisplay" Type="AppTemplaterService.Field">
+                    <ReferentialConstraint Property="EntityDescriptionDisplay_FieldUUID" ReferencedProperty="FieldUUID"/>
+                </NavigationProperty>
+                <Property Name="EntityDescriptionDisplay_FieldUUID" Type="Edm.Guid"/>
+                <Property Name="EntityHasDeterminations" Type="Edm.Boolean"/>
+                <Property Name="EntityGenerateDataFile" Type="Edm.Boolean"/>
+                <Property Name="EntityHasValidations" Type="Edm.Boolean"/>
+                <Property Name="EntityIsRoot" Type="Edm.Boolean"/>
+                <NavigationProperty Name="to_Service" Type="AppTemplaterService.Service" Partner="to_Entity">
+                    <ReferentialConstraint Property="to_Service_ServiceUUID" ReferencedProperty="ServiceUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Service_ServiceUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="to_Field" Type="Collection(AppTemplaterService.Field)" Partner="to_Entity">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="to_Action" Type="Collection(AppTemplaterService.Action)" Partner="to_Entity">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="to_Facet" Type="Collection(AppTemplaterService.Facet)" Partner="to_Entity">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="to_ValueHelp" Type="Collection(AppTemplaterService.ValueHelp)" Partner="to_Entity">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Association">
+                <Key>
+                    <PropertyRef Name="AssociationUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="AssociationUUID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="AssociationChildEntity" Type="AppTemplaterService.Entity">
+                    <ReferentialConstraint Property="AssociationChildEntity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="AssociationChildEntity_EntityUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="AssociationParentEntity" Type="AppTemplaterService.Entity">
+                    <ReferentialConstraint Property="AssociationParentEntity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="AssociationParentEntity_EntityUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="AssociationType" Type="AppTemplaterService.AssociationType">
+                    <ReferentialConstraint Property="AssociationType_AssociationType" ReferencedProperty="AssociationType"/>
+                </NavigationProperty>
+                <Property Name="AssociationType_AssociationType" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="to_Service" Type="AppTemplaterService.Service" Partner="to_Association">
+                    <ReferentialConstraint Property="to_Service_ServiceUUID" ReferencedProperty="ServiceUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Service_ServiceUUID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Facet">
+                <Key>
+                    <PropertyRef Name="FacetUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="FacetUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="FacetTechnicalName" Type="Edm.String" MaxLength="20"/>
+                <Property Name="FacetSortOrder" Type="Edm.Int32"/>
+                <Property Name="FacetLabel" Type="Edm.String" MaxLength="20"/>
+                <NavigationProperty Name="to_Entity" Type="AppTemplaterService.Entity" Partner="to_Facet">
+                    <ReferentialConstraint Property="to_Entity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Entity_EntityUUID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="ValueHelp">
+                <Key>
+                    <PropertyRef Name="ValueHelpUUID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ValueHelpUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ValueHelpTechnicalName" Type="Edm.String" MaxLength="30"/>
+                <NavigationProperty Name="ValueHelpEntity" Type="AppTemplaterService.Entity">
+                    <ReferentialConstraint Property="ValueHelpEntity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="ValueHelpEntity_EntityUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="ValueHelpTextField" Type="AppTemplaterService.Field">
+                    <ReferentialConstraint Property="ValueHelpTextField_FieldUUID" ReferencedProperty="FieldUUID"/>
+                </NavigationProperty>
+                <Property Name="ValueHelpTextField_FieldUUID" Type="Edm.Guid"/>
+                <Property Name="ValueHelpLabel" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ValueHelpSortOrder" Type="Edm.Int32"/>
+                <Property Name="ValueHelpLineDisplay" Type="Edm.Boolean"/>
+                <Property Name="ValueHelpDetailDisplay" Type="Edm.Boolean"/>
+                <NavigationProperty Name="InputType" Type="AppTemplaterService.InputType">
+                    <ReferentialConstraint Property="InputType_InputTypeCode" ReferencedProperty="InputTypeCode"/>
+                </NavigationProperty>
+                <Property Name="InputType_InputTypeCode" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="Facet" Type="AppTemplaterService.Facet">
+                    <ReferentialConstraint Property="Facet_FacetUUID" ReferencedProperty="FacetUUID"/>
+                </NavigationProperty>
+                <Property Name="Facet_FacetUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="to_Entity" Type="AppTemplaterService.Entity" Partner="to_ValueHelp">
+                    <ReferentialConstraint Property="to_Entity_EntityUUID" ReferencedProperty="EntityUUID"/>
+                </NavigationProperty>
+                <Property Name="to_Entity_EntityUUID" Type="Edm.Guid"/>
+            </EntityType>
+            <Action Name="generateTemplate" IsBound="true">
+                <Parameter Name="in" Type="AppTemplaterService.Service"/>
+            </Action>
+            <Action Name="ActionPrefillLabel" IsBound="true">
+                <Parameter Name="in" Type="AppTemplaterService.Action"/>
+            </Action>
+            <Action Name="prefillLabel" IsBound="true">
+                <Parameter Name="in" Type="AppTemplaterService.Field"/>
+            </Action>
+            <Annotations Target="AppTemplaterService.Service/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="AppTemplaterService.Service/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="AppTemplaterService.Service/LastChangedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="AppTemplaterService.Service/LastChangedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="AppTemplaterService.Action/createdAt">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                        </Annotations>
+                                        <Annotations Target="AppTemplaterService.Action/createdBy">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                </Annotations>
+                                                <Annotations Target="AppTemplaterService.Action/LastChangedAt">
+                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="AppTemplaterService.Action/LastChangedBy">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="AppTemplaterService.Field/createdAt">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="AppTemplaterService.Field/createdBy">
+                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="AppTemplaterService.Field/LastChangedAt">
+                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                            </Annotations>
+                                                                            <Annotations Target="AppTemplaterService.Field/LastChangedBy">
+                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="AppTemplaterService.Entity/createdAt">
+                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                        </Annotations>
+                                                                                        <Annotations Target="AppTemplaterService.Entity/createdBy">
+                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                </Annotations>
+                                                                                                <Annotations Target="AppTemplaterService.Entity/LastChangedAt">
+                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="AppTemplaterService.Entity/LastChangedBy">
+                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="AppTemplaterService.Association/createdAt">
+                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="AppTemplaterService.Association/createdBy">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="AppTemplaterService.Association/LastChangedAt">
+                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="AppTemplaterService.Association/LastChangedBy">
+                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                    </Annotations>
+                                                                                                                                    <Annotations Target="AppTemplaterService.Facet/createdAt">
+                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="AppTemplaterService.Facet/createdBy">
+                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="AppTemplaterService.Facet/LastChangedAt">
+                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                    </Annotations>
+                                                                                                                                                    <Annotations Target="AppTemplaterService.Facet/LastChangedBy">
+                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                            </Annotations>
+                                                                                                                                                            <Annotations Target="AppTemplaterService.ValueHelp/createdAt">
+                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                </Annotations>
+                                                                                                                                                                <Annotations Target="AppTemplaterService.ValueHelp/createdBy">
+                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="AppTemplaterService.ValueHelp/LastChangedAt">
+                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                            </Annotations>
+                                                                                                                                                                            <Annotations Target="AppTemplaterService.ValueHelp/LastChangedBy">
+                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                </Schema>
+                                                                                                                                                                            </edmx:DataServices>
+                                                                                                                                                                        </edmx:Edmx>

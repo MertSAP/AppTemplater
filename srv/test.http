@@ -1,0 +1,1 @@
+http://localhost:4004/processor/DraftFacets?$select=FacetTechnicalName,FacetUUID,to_Entity_EntityUUID&$count=true&$orderby=FacetUUID&$filter=to_Entity_EntityUUID%20eq%2067260417-e16a-4699-8de9-19c826ddbb4c&$skip=0&$top=51

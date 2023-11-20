@@ -1,0 +1,11 @@
+TypeCode;TypeName;
+Integer;Integer
+String;String
+Time;Time
+Date;Date
+TimeStamp;TimeStamp
+Decimal;Decimal;
+Currency;Currency;
+UUID;UUID;
+Boolean;Boolean;
+Country;Country;
