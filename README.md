@@ -49,7 +49,8 @@ Restrictions
         });
       ```
 * EntityVirtual
-  + A Virtual Entity will be defined the the 
+  + A Virtual Entity will be defined only in Service Implementation and not in the Domain Models(db/schema.cds)
 * EntityMasterData
+  + If ticked the Entity will be modeled as follows:
 
 
