@@ -1,21 +1,47 @@
+# Background
+
+AppTemplater is an SAP CAP Application that allows Developers jumpstart their projects by defining and modelling Service/Applications via a Fiori Interface. Through the User Interface the following aspects of a Service/Application can be modelled:
+
+* Entities - Both Master Data and Managed
+      + The Fields of an Entity including
+          + Field Types and keys
+          + Labels
+          + If they are Mandatory, Read Only, Optional
+          + In what Order and what Facet they appear
+          + If they should appear in List view and/or the Object Page
+      + Facets
+      + Actions
+      + Value Helps
+  + Entity Associations
+  + Roles and Authorisations for the Service
+
+ Through the Generate Template Action, a JSON File is generated. This JSON file can then be used as input in AppTemplater's companion CLI tool CAPGEN. CAPGEN generates a working SAP CAP project including:
+     + A working Fiori Applications N Levels deep
+     + Schema, Services, Valuehelps, Roles, Annotations, and Localisation all done!
+     + Intial date csv files with headerline generated
+
+AppTemplater and CAPGEN aim to automate the first 50% of Development, allowing Developers to focus on the most value adding parts. 
+
+A wide variety of tools already exist but this tool is:
+ + Fast! CAPGEN can generate a project in seconds
+ + Opensource and written in technologies the target audenience is familar with
+ + It can run locally! No special tools or licensing
+
+A two step process with AppTemplater and CAPGEN has been used because:
+ + AppTemplater's terminology is very SAP CAP/RAP specific but tool could be used to model an applcation in any technology
+ + It allows other generators to be developed by the community such as using the JSON to generate a RAP Application without the need to change AppTemplator
+ + The JSON file can be easily shared between developers 
+
 # Getting Started
-
-Welcome to your new project.
-
-It contains these folders and files, following our recommended project layout:
-
+ ```
+mkdir AppTemplator
+cd AppTemplator
+git clone https://github.com/MertSAP/AppTemplater-.git
+npm install
+cds watch
+ ```
 ## User Interface - Note Worthy Options
 ### Service
-* ServiceTechnicalName
-    + Used throughout as the technical name for the service. The current version of CAPGEN will append 'Service' to the end of this name
-    + Restrictions: Mandatory and can only be made up of lower & uppercase letters
-* ServiceName
-    + Used as the App Title when also generating a Fiori Application
-* ServiceNamePlural
-    + Currently not used
-* ServiceNamespace
-    + Used in the db/schema.cds and srv/service.cds file to set the namesepace
-    + Restrictions: Mandatory and can only be made up of lower & uppercase letters, and '.'
 
 #### Association
 Associations link Entities together. Currently only 1 to many associations are supported. 
@@ -24,33 +50,5 @@ Restrictions
 * Master Data Entities can only be associated with other Master Data Entities
 * Non Master Data Entities(Managed) can only be associated withother  Non Master Data Entities(Managed)
 * Although App Templater will allow Ciricular Associations(Travel -> Booking -> Booking Supplement -> Travel), the current version of CAPGEN will not
-  
-#### Entity
-* EntityTechnicalName
-* EntityName
-* EntityNamePlural
-* EntityTitleDisplay
-  + 
-* EntityDescriptionDisplay
-* EntityHasDeterminations
-    + If checked this will create the following code in the service implementation js file
-      ```
-       this.before ('CREATE', '{{EntityTechnicalName}}', async req => {
-    
-        })
-      ```
-* EntityGenerateDataFile
-  + This generates a csv file with name {{ServiceNamespace}}-{{EntityTechnicalName}}.csv with the corresponding headerline and places it in the db/data/ directory
-* EntityHasValidations
-    + If checked this will create the following code in the service implementation js file
-      ```
-        this.before('SAVE', '{{EntityTechnicalName}}', async req => {
-      
-        });
-      ```
-* EntityVirtual
-  + A Virtual Entity will be defined only in Service Implementation and not in the Domain Models(db/schema.cds)
-* EntityMasterData
-  + If ticked the Entity will be modeled as follows:
 
 
