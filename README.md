@@ -49,6 +49,11 @@ TemplateFiles are generated and saved in the following directory
 Template Files can also be pleace here and loaded via the Load Template Action
 
 ## User Interface - Note Worthy Options
+#### General
+* All Technical Names need to be made up of letters only
+* Entity Technical Names must be unique at the Service Level
+* Fields must be unique at the Entity Level
+  
 #### Association
 Associations link Entities together. Currently only 1 to many associations are supported. 
 Restrictions
