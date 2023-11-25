@@ -71,7 +71,6 @@ class AppTemplaterService extends cds.ApplicationService {
               .where({ TypeCode : fieldRow.FieldType_TypeCode});
             
             //Not required but provided
-            console.log(fieldTypeResult)
             if(fieldTypeResult[0].TypeArgsStatus === 'N' && (fieldRow.FieldLength !== "" && fieldRow.FieldLength !== null )) {
               req.error(
                 400,
@@ -106,7 +105,7 @@ class AppTemplaterService extends cds.ApplicationService {
               if(fieldTypeResult[0].TypeArgs === 'PC') {
                 var regExpPC = new RegExp("^\\d+,\\d+$");
                 if(!regExpPC.test(fieldRow.FieldLength)) {
-                  console.log(fieldRow.FieldLength);
+                  
                   req.error(
                     400,
                     `Field: ${fieldRow.FieldTechnicalName}: Length must be an format: Precision,Scale (i.e. 16,3)`,
@@ -332,7 +331,6 @@ class AppTemplaterService extends cds.ApplicationService {
       } else if (req.query.SELECT.where[0].ref[0] === 'to_ServiceRole_RoleUUID') {
         let serviceRole =   await SELECT`to_Service_ServiceUUID`.from(ServiceRole.drafts).where({RoleUUID: req.query.SELECT.where[2].val})
         serviceUUID = serviceRole[0].to_Service_ServiceUUID
-        console.log(serviceRole);
       }
 
       fieldResult = await SELECT`ServiceUUID`
