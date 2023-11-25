@@ -16,13 +16,14 @@ class AppTemplaterService extends cds.ApplicationService {
       ValueHelp,
       Action,
       ServiceRole,
-      ServiceAuth
+      ServiceAuth,
+      FieldType
     } = this.entities
     /*
       Perform various validations before saving
     */
 
-    this.before('SAVE', 'Service', req => {
+    this.before('SAVE', 'Service', async req => {
       const { to_Entity, to_Association, to_ServiceRole } = req.data
 
       if (to_Entity !== undefined) {
@@ -64,6 +65,58 @@ class AppTemplaterService extends cds.ApplicationService {
                 `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
               )
             }
+
+            let fieldTypeResult = await SELECT`TypeArgs,TypeArgsStatus`
+              .from(FieldType)
+              .where({ TypeCode : fieldRow.FieldType_TypeCode});
+            
+            //Not required but provided
+            console.log(fieldTypeResult)
+            if(fieldTypeResult[0].TypeArgsStatus === 'N' && (fieldRow.FieldLength !== "" && fieldRow.FieldLength !== null )) {
+              req.error(
+                400,
+                `Field: ${fieldRow.FieldTechnicalName}: Length provided but not allowed for ${fieldRow.FieldType_TypeCode}`,
+                `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
+              )
+            }
+
+            //Required and not provided
+            if(fieldTypeResult[0].TypeArgsStatus === 'M' && (fieldRow.FieldLength === "" || fieldRow.FieldLength === null )) {
+              req.error(
+                400,
+                `Field: ${fieldRow.FieldTechnicalName}: Length not provided but required for ${fieldRow.FieldType_TypeCode}`,
+                `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
+              )
+            }
+
+            if((fieldTypeResult[0].TypeArgsStatus === 'M' || fieldTypeResult[0].TypeArgsStatus === 'O')  && (fieldRow.FieldLength !== "" && fieldRow.FieldLength !== null )) {
+              //Length needs to be an Integer
+              if(fieldTypeResult[0].TypeArgs === 'L') {
+                var regExpInt = new RegExp("^\\d+$");
+                if(!regExpInt.test(fieldRow.FieldLength)) {
+                  req.error(
+                    400,
+                    `Field: ${fieldRow.FieldTechnicalName}: Length must be an Integer`,
+                    `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
+                  )
+
+                }
+              }
+              //Length needs to contain precison and scale
+              if(fieldTypeResult[0].TypeArgs === 'PC') {
+                var regExpPC = new RegExp("^\\d+,\\d+$");
+                if(!regExpPC.test(fieldRow.FieldLength)) {
+                  console.log(fieldRow.FieldLength);
+                  req.error(
+                    400,
+                    `Field: ${fieldRow.FieldTechnicalName}: Length must be an format: Precision,Scale (i.e. 16,3)`,
+                    `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
+                  )
+
+                }
+              }
+            }
+
           }
         }
       }

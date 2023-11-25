@@ -140,6 +140,8 @@ entity AssociationType {
 entity FieldType {
     key TypeCode : String(20);
     TypeName : String(20);
+    TypeArgs: String(4);
+    TypeArgsStatus: String(1)
 }
 entity InputType {
     key InputTypeCode : String(20);
