@@ -108,11 +108,7 @@ annotate AppTemplaterService.Service with @UI: {
     {
       $Type: 'UI.DataField',
       Value: ServiceName
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: ServiceNamePlural
-    },
+    }
   ]},
 };
 
@@ -413,7 +409,6 @@ annotate AppTemplaterService.Field with @UI: {
     {Value: FieldisKey},
     {Value: FieldLineDisplay},
     {Value: FieldDetailDisplay},
-    {Value: FieldReadOnly},
     {Value: FieldisSelectionField},
     {Value: FieldSortOrder},
     {Value: InputType_InputTypeCode},
@@ -649,7 +644,6 @@ annotate AppTemplaterService.ServiceAuth with @UI: {
   ],
   LineItem           : [
     {Value: AuthType_AuthorisationType},
-    {Value: AuthCascade},
     {Value: AuthEntity_EntityUUID},
   ],
 };

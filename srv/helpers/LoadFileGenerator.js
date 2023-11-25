@@ -23,7 +23,6 @@ module.exports = class LoadFileGenerator {
       .columns((s) => {
         s.ServiceTechnicalName,
         s.ServiceName,
-        s.ServiceNamePlural,
         s.ServiceNamespace,
         s.to_Entity((e) => {
           e.EntityTechnicalName,
@@ -46,7 +45,6 @@ module.exports = class LoadFileGenerator {
             f.FieldisKey,
             f.FieldLineDisplay,
             f.FieldDetailDisplay,
-            f.FieldReadOnly,
             f.FieldisSelectionField,
             f.FieldSortOrder,
             f.FieldVirtual,
@@ -105,7 +103,6 @@ module.exports = class LoadFileGenerator {
           role.RoleLocalUser,
           role.RoleLocalPassword,
           role.to_ServiceAuth((auth) => {
-            auth.AuthCascade,
             auth.AuthType_AuthorisationType` as AuthType`,
             auth.AuthEntity((authEntity) => {
               authEntity.EntityTechnicalName

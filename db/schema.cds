@@ -4,19 +4,18 @@ namespace mert.AppTemplater;
 
 entity Service : managed {
     key ServiceUUID : UUID;
-    ServiceTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$';
-    ServiceName : String(30);
-    ServiceNamePlural : String(30);
-    ServiceNamespace : String(30);
+    ServiceTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    ServiceName : String(30) @mandatory;
+    ServiceNamespace : String(30)  @assert.format: '^[a-zA-Z.]+$' @mandatory;
     to_Entity:  Composition of many Entity on  to_Entity.to_Service = $self;
     to_Association:  Composition of many Association on  to_Association.to_Service = $self;
     to_ServiceRole: Composition of many ServiceRole on to_ServiceRole.to_Service = $self;
 }
 entity Association : managed {
     key AssociationUUID : UUID;
-    AssociationChildEntity : Association to Entity;
-    AssociationParentEntity : Association to Entity;
-    AssociationType : Association to  AssociationType;
+    AssociationChildEntity : Association to Entity @mandatory;
+    AssociationParentEntity : Association to Entity @mandatory;
+    AssociationType : Association to  AssociationType @mandatory;
     to_Service:  Association to Service;
 }
 
@@ -25,9 +24,9 @@ entity Association : managed {
 }
 entity Entity : managed {
     key EntityUUID : UUID;
-    EntityTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$';
-    EntityName : String(30);
-    EntityNamePlural : String(30);
+    EntityTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    EntityName : String(30) @mandatory;
+    EntityNamePlural : String(30) @mandatory;
     EntityTitleDisplay : Association to  Field;
     EntityDescriptionDisplay :  Association to  Field;
     EntityHasDeterminations : Boolean;
@@ -41,10 +40,14 @@ entity Entity : managed {
     to_Facet:  Composition of many Facet on  to_Facet.to_Entity = $self;
     to_ValueHelp:  Composition of many ValueHelp on  to_ValueHelp.to_Entity = $self;
 }
+@assert.unique: {
+  timeslice: [ to_Entity, ActionTechnicalName ],
+}
+
 entity Action : managed {
     key ActionUUID : UUID;
-    ActionTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$';
-    ActionLabel : String(30);
+    ActionTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    ActionLabel : String(30) @mandatory;
     ActionSortOrder : Integer;
     ActionFieldControl: Association to Field;
     to_Entity:  Association to Entity;
@@ -53,9 +56,9 @@ entity Action : managed {
 
 entity ActionParameter : managed {
     key ActionParameterUUID : UUID;
-    ActionParameterTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$';
-    ActionParameterLabel : String(30);
-    ActionParameterType : Association to  FieldType;
+    ActionParameterTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    ActionParameterLabel : String(30) @mandatory;
+    ActionParameterType : Association to  FieldType @mandatory;
     ActionParameterSortOrder : Integer;
     to_Action:  Association to Action;
 }
@@ -66,9 +69,9 @@ entity ActionParameter : managed {
 
 entity Facet : managed {
     key FacetUUID : UUID;
-    FacetTechnicalName : String(20) @assert.format: '^[a-zA-Z]+$';
+    FacetTechnicalName : String(20) @assert.format: '^[a-zA-Z]+$' @mandatory;
     FacetSortOrder : Integer;
-    FacetLabel : String(20);
+    FacetLabel : String(20) @mandatory;
     to_Entity:  Association to Entity;
 }
 @assert.unique: {
@@ -76,18 +79,17 @@ entity Facet : managed {
 }
 entity Field : managed {
     key FieldUUID : UUID;
-    FieldTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$';
-    FieldLabel : String(30);
+    FieldTechnicalName : String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    FieldLabel : String(30) @mandatory;
     FieldLength : String(5);
     FieldisKey : Boolean;
     FieldLineDisplay : Boolean;
     FieldDetailDisplay : Boolean;
-    FieldReadOnly : Boolean;
     FieldisSelectionField : Boolean;
     FieldVirtual : Boolean;
     FieldSortOrder : Integer;
-    FieldType : Association to  FieldType;
-    InputType : Association to  InputType;
+    FieldType : Association to  FieldType @mandatory;
+    InputType : Association to  InputType @mandatory;
     Facet: Association to  Facet;
     to_Entity:  Association to Entity;
     to_Service : Association to Service;
@@ -100,14 +102,14 @@ entity Field : managed {
 
 entity ValueHelp : managed {
     key ValueHelpUUID : UUID;
-    ValueHelpTechnicalName :  String(30) @assert.format: '^[a-zA-Z]+$';
-    ValueHelpEntity : Association to Entity;
-    ValueHelpTextField : Association to Field;
-    ValueHelpLabel : String(30);
+    ValueHelpTechnicalName :  String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    ValueHelpEntity : Association to Entity @mandatory;
+    ValueHelpTextField : Association to Field @mandatory;
+    ValueHelpLabel : String(30) @mandatory;
     ValueHelpSortOrder : Integer;
     ValueHelpLineDisplay : Boolean;
     ValueHelpDetailDisplay : Boolean;
-    InputType : Association to  InputType;
+    InputType : Association to  InputType @mandatory;
     Facet: Association to Facet;
     to_Entity:  Association to Entity;
     to_Service : Association to Service;
@@ -116,19 +118,18 @@ entity ValueHelp : managed {
 
 entity ServiceRole : managed {
     key RoleUUID: UUID;
-    RoleTechnicalName: String(30) @assert.format: '^[a-zA-Z]+$';
-    RoleLabel: String(30);
-    RoleLocalUser: String(30);
-    RoleLocalPassword: String(30);
+    RoleTechnicalName: String(30) @assert.format: '^[a-zA-Z]+$' @mandatory;
+    RoleLabel: String(30) @mandatory;
+    RoleLocalUser: String(30) @mandatory;
+    RoleLocalPassword: String(30) @mandatory;
     to_ServiceAuth: Composition of many ServiceAuth on  to_ServiceAuth.to_ServiceRole = $self;
     to_Service: Association to Service;
 }
 
 entity ServiceAuth : managed {
     key AuthUUID: UUID;
-    AuthCascade: Boolean;
-    AuthType: Association to AuthorisationType;
-    AuthEntity: Association to Entity;
+    AuthType: Association to AuthorisationType @mandatory;
+    AuthEntity: Association to Entity @mandatory;
     to_ServiceRole:  Association to ServiceRole;
     to_Service : Association to Service;
 } 

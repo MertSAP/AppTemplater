@@ -21,8 +21,9 @@ class AppTemplaterService extends cds.ApplicationService {
     /*
       Perform various validations before saving
     */
+
     this.before('SAVE', 'Service', req => {
-      const { to_Entity, to_Association } = req.data
+      const { to_Entity, to_Association, to_ServiceRole } = req.data
 
       if (to_Entity !== undefined) {
         for (const entityRow of to_Entity) {
@@ -85,19 +86,28 @@ class AppTemplaterService extends cds.ApplicationService {
           let childEntity = to_Entity.find(item => {
             return item.EntityUUID ===  associationRow.AssociationChildEntity_EntityUUID
           })
-          console.log(associationRow)
-          console.log(parentEntity)
-          console.log(childEntity)
-
+          
           if((parentEntity.EntityMasterData && !childEntity.EntityMasterData) || (!parentEntity.EntityMasterData && childEntity.EntityMasterData)) {
             req.error(
               400,
               'Master Data Entities can not be used in non Master Data Associations',
-              `in/to_Assocations(Assocations=${associationRow.AssociationUUID},IsActiveEntity=false)/`
+              `in/to_Association(AssociationUUID=${associationRow.AssociationUUID},IsActiveEntity=false)/`
             )
           }    
         }
       } 
+
+      if(to_ServiceRole !== undefined) {
+        for (const roleRow of to_ServiceRole) {
+          if(roleRow.to_ServiceAuth.length === 0) {
+            req.error(
+              400,
+              'Authorisations must be defined if a Role is defined ',
+              `in/to_ServiceRole(RoleUUID=${roleRow.RoleUUID},IsActiveEntity=false)/`
+            )
+          }
+        }
+      }
     })
     /*
       Load a template file
