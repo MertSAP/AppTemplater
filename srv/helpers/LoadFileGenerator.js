@@ -13,7 +13,7 @@ module.exports = class LoadFileGenerator {
   }
 
   /*
-    Retrieves a Service and assoicated entities down the full tree
+    Retrieves a Service and assoicated entities down the full tree.
   */
   async getServiceTree () {
     const serviceData = await SELECT.from(Service)
