@@ -2,7 +2,7 @@
   "name": "apptemplater",
   "version": "1.0.0",
   "description": "A CAP App for Templating Applications",
-  "repository": "<Add your repository here>",
+  "repository": "https://github.com/MertSAP/AppTemplater",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
