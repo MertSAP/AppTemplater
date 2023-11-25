@@ -108,7 +108,6 @@ module.exports = class LoadFileProcessor {
       }
       delete fieldRow.Facet
 
-      //fieldRow.FieldUUID = cds.utils.uuid()
     }
     return fields
   }

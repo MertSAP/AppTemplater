@@ -6,21 +6,9 @@ module.exports = class RelationshipTracer {
   async traceAndValidateRelationships (serviceData) {
     this.serviceData = serviceData
     this.serviceData = await this.assignAssociations(this.serviceData)
-    //this.findPathsForRoots()
-
     return this.serviceData
   }
 
-  
-  async findPathsForRoots () {
-    for (const entityRow of this.serviceData.to_Entity) {
-      //if (entityRow.EntityParentRelationships.length === 0 && entityRow.EntityChildRelationships.length > 0) {
-      if(entityRow.EntityTechnicalName === "Travel") {
-        console.log(entityRow.EntityTechnicalName)
-        await this.findPath(entityRow, undefined)
-      }
-    }
-  }
 
   async getEntityTechnicalname (EntityUUID) {
     const entity = this.serviceData.to_Entity.find(item => {
@@ -45,7 +33,6 @@ module.exports = class RelationshipTracer {
     for (const entityRow of serviceTree.to_Entity) {
       entityRow.EntityParentRelationships = []
       entityRow.EntityChildRelationships = []
-      //entityRow.PathToRoot = []
       for (const associationRow of serviceTree.to_Association) {
         if (associationRow.AssociationChildEntity === undefined) {
           associationRow.AssociationChildEntity = {}
@@ -93,53 +80,6 @@ module.exports = class RelationshipTracer {
         }
       }
     }
-
     return serviceTree
-  }
-
-  async findEntityIndex (SearchEntity) {
-    let foundIndex = 0
-    for (const entity of this.serviceData.to_Entity) {
-      if (entity.EntityTechnicalName === SearchEntity) {
-        return foundIndex
-      }
-      foundIndex++
-    }
-    return -1
-  }
-
-  async findPath (Entity, ParentEntity) {
-    if (ParentEntity !== undefined) {
-    
-      Entity.PathToRoot = Object.assign(Entity.PathToRoot, ParentEntity.PathToRoot)
- 
-      const isCircular = await this.isCiricularRelationship(Entity)
-      if (isCircular) {
-       
-        throw 'Circular'
-      }
-
-      Entity.PathToRoot.push({ EntityTechnicalName: ParentEntity.EntityTechnicalName })
-      console.log(Entity.PathToRoot)
-    }
-
-    for (const childRow of Entity.EntityChildRelationships) {
-      
-      const index = await this.findEntityIndex(childRow.EntityTechnicalName)
-      await this.findPath(this.serviceData.to_Entity[index], Entity)
-    }
-
-    const updateIndex = await this.findEntityIndex(Entity.EntityTechnicalName)
-    this.serviceData.to_Entity[updateIndex] = Entity
-  }
-
-  async isCiricularRelationship (Entity) {
-    const isCiricular = false
-    for (const ancestorRow of Entity.PathToRoot) {
-      if (ancestorRow.EntityTechnicalName === Entity.EntityTechnicalName) {
-        //return true
-      }
-    }
-    return isCiricular
   }
 }

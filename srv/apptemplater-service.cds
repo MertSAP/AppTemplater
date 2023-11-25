@@ -41,7 +41,7 @@ service AppTemplaterService @(path: '/processor') {
         action ValueHelpPrefillLabel();
     };
 
-    entity ServiceAuth   as projection on my.ServiceAuth;
+    entity ServiceAuth        as projection on my.ServiceAuth;
     entity AssociationType   as projection on my.AssociationType;
     entity FieldType         as projection on my.FieldType;
     entity InputType         as projection on my.InputType;

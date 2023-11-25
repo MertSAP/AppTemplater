@@ -249,7 +249,7 @@ module.exports = class LoadFileGenerator {
     jsonOutput.version = ProjectJson.version
     jsonOutput.genenerator = ProjectJson.name
     jsonOutput.repository = ProjectJson.repository
-    fileName = '/template_' + fileName + '.json'
+    fileName = 'template_' + fileName + '.json'
     const fileHelpers = new FileHelpers()
     return fileHelpers.outputFile(fileName, jsonOutput)
   }
