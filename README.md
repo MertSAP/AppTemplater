@@ -36,7 +36,7 @@ A two step process with AppTemplater and CAPGEN has been used because:
  ```
 mkdir AppTemplator
 cd AppTemplator
-git clone https://github.com/MertSAP/AppTemplater-.git
+git clone https://github.com/MertSAP/AppTemplater.git
 npm install
 cds watch
  ```
