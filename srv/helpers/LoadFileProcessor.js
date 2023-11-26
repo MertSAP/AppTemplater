@@ -12,7 +12,6 @@ module.exports = class LoadFileProcessor {
       entityRow.to_Service_ServiceUUID = this.Service.ServiceUUID
       entityRow.to_Facet = this.prepareFacets(entityRow.to_Facet, entityRow.EntityUUID)
       entityRow.to_Field = await this.prepareFields(entityRow.to_Field, entityRow);
-      console.log(entityRow)
     }
 
     for (const entityRow of this.Service.to_Entity) {
@@ -61,7 +60,6 @@ module.exports = class LoadFileProcessor {
           return item.EntityTechnicalName === serviceAuthRow.AuthEntity.EntityTechnicalName
         })
         delete serviceAuthRow['AuthEntity']
-        console.log(authEntity.EntityUUID)
         serviceAuthRow.AuthEntity_EntityUUID = authEntity.EntityUUID
       }
     }
