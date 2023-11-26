@@ -1,2 +1,2 @@
 AssociationType;AssociationTypeDescription;
-Many;to Many(0 to 1)
+Many;to Many(0 to N)
