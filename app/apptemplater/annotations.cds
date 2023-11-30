@@ -470,10 +470,6 @@ annotate AppTemplaterService.Field with @UI: {
     },
     {
       $Type: 'UI.DataField',
-      Value: FieldReadOnly
-    },
-    {
-      $Type: 'UI.DataField',
       Value: FieldisSelectionField
     },
     {
@@ -564,7 +560,11 @@ annotate AppTemplaterService.ActionParameter with @UI: {
 
 annotate AppTemplaterService.ServiceRole with @UI: {
 
-  Identification        : [],
+  Identification        : [{
+    $Type : 'UI.DataFieldForAction',
+    Action: 'AppTemplaterService.fillEntities',
+    Label : '{i18n>ServiceRole-fillEntities}'
+  }],
   HeaderInfo            : {
     TypeName      : '{i18n>Role}',
     TypeNamePlural: '{i18n>Roles}',

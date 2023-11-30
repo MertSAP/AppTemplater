@@ -57,8 +57,8 @@ class AppTemplaterService extends cds.ApplicationService {
             )
           }
 
-          for(let fieldRow of entityRow.to_Field) {
-            if(fieldRow.InputType_InputTypeCode === 'SemanticKey' && fieldRow.FieldType_TypeCode !== 'Integer') {
+          for (const fieldRow of entityRow.to_Field) {
+            if (fieldRow.InputType_InputTypeCode === 'SemanticKey' && fieldRow.FieldType_TypeCode !== 'Integer') {
               req.error(
                 400,
                 `Field: ${fieldRow.FieldTechnicalName}: A Semantic Auto Increment Key must be an Integer`,
@@ -66,12 +66,12 @@ class AppTemplaterService extends cds.ApplicationService {
               )
             }
 
-            let fieldTypeResult = await SELECT`TypeArgs,TypeArgsStatus`
+            const fieldTypeResult = await SELECT`TypeArgs,TypeArgsStatus`
               .from(FieldType)
-              .where({ TypeCode : fieldRow.FieldType_TypeCode});
-            
-            //Not required but provided
-            if(fieldTypeResult[0].TypeArgsStatus === 'N' && (fieldRow.FieldLength !== "" && fieldRow.FieldLength !== null )) {
+              .where({ TypeCode: fieldRow.FieldType_TypeCode })
+
+            // Not required but provided
+            if (fieldTypeResult[0].TypeArgsStatus === 'N' && (fieldRow.FieldLength !== '' && fieldRow.FieldLength !== null)) {
               req.error(
                 400,
                 `Field: ${fieldRow.FieldTechnicalName}: Length provided but not allowed for ${fieldRow.FieldType_TypeCode}`,
@@ -79,8 +79,8 @@ class AppTemplaterService extends cds.ApplicationService {
               )
             }
 
-            //Required and not provided
-            if(fieldTypeResult[0].TypeArgsStatus === 'M' && (fieldRow.FieldLength === "" || fieldRow.FieldLength === null )) {
+            // Required and not provided
+            if (fieldTypeResult[0].TypeArgsStatus === 'M' && (fieldRow.FieldLength === '' || fieldRow.FieldLength === null)) {
               req.error(
                 400,
                 `Field: ${fieldRow.FieldTechnicalName}: Length not provided but required for ${fieldRow.FieldType_TypeCode}`,
@@ -88,38 +88,34 @@ class AppTemplaterService extends cds.ApplicationService {
               )
             }
 
-            if((fieldTypeResult[0].TypeArgsStatus === 'M' || fieldTypeResult[0].TypeArgsStatus === 'O')  && (fieldRow.FieldLength !== "" && fieldRow.FieldLength !== null )) {
-              //Length needs to be an Integer
-              if(fieldTypeResult[0].TypeArgs === 'L') {
-                var regExpInt = new RegExp("^\\d+$");
-                if(!regExpInt.test(fieldRow.FieldLength)) {
+            if ((fieldTypeResult[0].TypeArgsStatus === 'M' || fieldTypeResult[0].TypeArgsStatus === 'O') && (fieldRow.FieldLength !== '' && fieldRow.FieldLength !== null)) {
+              // Length needs to be an Integer
+              if (fieldTypeResult[0].TypeArgs === 'L') {
+                const regExpInt = new RegExp('^\\d+$')
+                if (!regExpInt.test(fieldRow.FieldLength)) {
                   req.error(
                     400,
                     `Field: ${fieldRow.FieldTechnicalName}: Length must be an Integer`,
                     `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
                   )
-
                 }
               }
-              //Length needs to contain precison and scale
-              if(fieldTypeResult[0].TypeArgs === 'PC') {
-                var regExpPC = new RegExp("^\\d+,\\d+$");
-                if(!regExpPC.test(fieldRow.FieldLength)) {
-                  
+              // Length needs to contain precison and scale
+              if (fieldTypeResult[0].TypeArgs === 'PC') {
+                const regExpPC = new RegExp('^\\d+,\\d+$')
+                if (!regExpPC.test(fieldRow.FieldLength)) {
                   req.error(
                     400,
                     `Field: ${fieldRow.FieldTechnicalName}: Length must be an format: Precision,Scale (i.e. 16,3)`,
                     `in/to_Entity(EntityUUID=${entityRow.EntityUUID},IsActiveEntity=false)/to_Field(FieldUUID=${fieldRow.FieldUUID},IsActiveEntity=false)`
                   )
-
                 }
               }
             }
-
           }
         }
       }
-      
+
       if (to_Association !== undefined) {
         for (const associationRow of to_Association) {
           if (
@@ -132,26 +128,26 @@ class AppTemplaterService extends cds.ApplicationService {
               `in/to_Association(AssociationUUID=${associationRow.AssociationUUID},IsActiveEntity=false)/`
             )
           }
-          let parentEntity = to_Entity.find(item => {
-            return item.EntityUUID ===  associationRow.AssociationParentEntity_EntityUUID
+          const parentEntity = to_Entity.find(item => {
+            return item.EntityUUID === associationRow.AssociationParentEntity_EntityUUID
           })
-          let childEntity = to_Entity.find(item => {
-            return item.EntityUUID ===  associationRow.AssociationChildEntity_EntityUUID
+          const childEntity = to_Entity.find(item => {
+            return item.EntityUUID === associationRow.AssociationChildEntity_EntityUUID
           })
-          
-          if((parentEntity.EntityMasterData && !childEntity.EntityMasterData) || (!parentEntity.EntityMasterData && childEntity.EntityMasterData)) {
+
+          if ((parentEntity.EntityMasterData && !childEntity.EntityMasterData) || (!parentEntity.EntityMasterData && childEntity.EntityMasterData)) {
             req.error(
               400,
               'Master Data Entities can not be used in non Master Data Associations',
               `in/to_Association(AssociationUUID=${associationRow.AssociationUUID},IsActiveEntity=false)/`
             )
-          }    
+          }
         }
-      } 
+      }
 
-      if(to_ServiceRole !== undefined) {
+      if (to_ServiceRole !== undefined) {
         for (const roleRow of to_ServiceRole) {
-          if(roleRow.to_ServiceAuth.length === 0) {
+          if (roleRow.to_ServiceAuth.length === 0) {
             req.error(
               400,
               'Authorisations must be defined if a Role is defined ',
@@ -323,13 +319,13 @@ class AppTemplaterService extends cds.ApplicationService {
       if (req.query.SELECT.where === undefined) {
         return req.error(400, 'Query Parameter is required')
       }
-      var serviceUUID = '';
-      ///// ServiceUUID is provided
+      let serviceUUID = ''
+      /// // ServiceUUID is provided
 
       if (req.query.SELECT.where[0].ref[0] === 'to_Service_ServiceUUID') {
         serviceUUID = req.query.SELECT.where[2].val
       } else if (req.query.SELECT.where[0].ref[0] === 'to_ServiceRole_RoleUUID') {
-        let serviceRole =   await SELECT`to_Service_ServiceUUID`.from(ServiceRole.drafts).where({RoleUUID: req.query.SELECT.where[2].val})
+        const serviceRole = await SELECT`to_Service_ServiceUUID`.from(ServiceRole.drafts).where({ RoleUUID: req.query.SELECT.where[2].val })
         serviceUUID = serviceRole[0].to_Service_ServiceUUID
       }
 
@@ -340,18 +336,18 @@ class AppTemplaterService extends cds.ApplicationService {
         result =
           await SELECT`EntityUUID,EntityTechnicalName,EntityName, to_Service_ServiceUUID`
             .from(Entity)
-            .where({to_Service_ServiceUUID: serviceUUID})
+            .where({ to_Service_ServiceUUID: serviceUUID })
         req.query.count = true
         result.$count = result.length
       } else {
         result =
           await SELECT`EntityUUID,EntityTechnicalName,EntityName, to_Service_ServiceUUID`
             .from(Entity.drafts)
-            .where({to_Service_ServiceUUID: serviceUUID})
+            .where({ to_Service_ServiceUUID: serviceUUID })
         req.query.count = true
         result.$count = result.length
       }
-    
+
       return result
     })
     /*
@@ -421,6 +417,35 @@ class AppTemplaterService extends cds.ApplicationService {
           )
         })
       }
+    })
+
+    this.on('fillEntities', async (req) => {
+      let ServiceUUID = ''
+      let RoleUUID = ''
+   
+      for (const param of req.params) {
+        if (param.ServiceUUID !== undefined) {
+          ServiceUUID = param.ServiceUUID
+        }
+
+        if (param.RoleUUID !== undefined) {
+          RoleUUID = param.RoleUUID
+        }
+      }
+
+      const entities = await SELECT`EntityUUID,DraftAdministrativeData_DraftUUID,EntityMasterData`.from(Entity.drafts).where({ to_Service_ServiceUUID: ServiceUUID })
+      for (const entity of entities) {
+        console.log(entity)
+        if(entity.EntityMasterData === null || !entity.EntityMasterData) {
+          await this.create(ServiceAuth.drafts).entries({
+            to_ServiceRole_RoleUUID: RoleUUID,
+            AuthType_AuthorisationType: req.data.AuthorisationType,
+            DraftAdministrativeData_DraftUUID: entity.DraftAdministrativeData_DraftUUID,
+            AuthEntity_EntityUUID: entity.EntityUUID
+          })
+        }
+        }
+
     })
 
     this.on('prefillLabel', async (req) => {

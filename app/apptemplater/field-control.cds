@@ -17,6 +17,10 @@ annotate AppTemplaterService.ValueHelp with @() actions {
     ValueHelpPrefillLabel                        @(Common.SideEffects.TargetProperties: ['in/ValueHelpLabel'], );
 }
 
+annotate AppTemplaterService.ServiceRole with @() actions {
+    fillEntities                        @(Common.SideEffects.TargetProperties: ['in/to_ServiceAuth'], );
+}
+
 
 annotate AppTemplaterService.Entity with @(Common.SideEffects: {
     SourceEntities: [to_Field,to_Action,to_Facet,to_ValueHelp],

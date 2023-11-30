@@ -41,6 +41,25 @@ service AppTemplaterService @(path: '/processor') {
         action ValueHelpPrefillLabel();
     };
 
+      entity ServiceRole             as projection on my.ServiceRole actions {
+        action fillEntities(@(
+                             title:'Auth Type',
+                             Common:{
+                                 ValueListWithFixedValues: true,
+                                 ValueList               : {
+                                     Label         : '{i18n>ServiceAuth}',
+                                     CollectionPath: 'AuthorisationType',
+                                     Parameters    : [{
+                                         $Type            : 'Common.ValueListParameterInOut',
+                                         ValueListProperty: 'AuthorisationType',
+                                         LocalDataProperty: AuthorisationType
+                                     }]
+                                 }
+                             }
+                         )
+                         AuthorisationType : String(30));
+    };
+
     entity ServiceAuth        as projection on my.ServiceAuth;
     entity AssociationType   as projection on my.AssociationType;
     entity FieldType         as projection on my.FieldType;
