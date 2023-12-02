@@ -27,6 +27,8 @@ module.exports = class LoadFileProcessor {
         associationRow.to_Service_ServiceUUID = this.Service.ServiceUUID
         this.Service.to_Association.push(associationRow)
       }
+      delete entityRow['EntityParentRelationships']
+      delete entityRow['EntityChildRelationships']
     }
 
     this.prepareValueHelps(this.Service.ServiceUUID)
