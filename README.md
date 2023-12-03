@@ -1,6 +1,6 @@
 # Background
 
-AppTemplater is an SAP CAP Application that allows Developers to jumpstart their projects by defining and modelling Service/Applications via a Fiori Interface. Through the User Interface the following aspects of a Service/Application can be modelled:
+AppTemplater is a SAP Cloud Application Programming Model(CAP) Application that allows Developers to jumpstart their projects by defining and modelling Service/Applications via a Fiori Interface. Through the User Interface the following aspects of a Service/Application can be modelled:
 
 * Entities - Both Master Data and Managed
   * The Fields of an Entity including
