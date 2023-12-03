@@ -34,10 +34,9 @@ A two step process with AppTemplater and CAPGEN has been used because:
 
 # Getting Started
  ```
-mkdir AppTemplator
-cd AppTemplator
 git clone https://github.com/MertSAP/AppTemplater.git
-npm install
+cd AppTemplator
+cds deploy --to sql
 cds watch
  ```
 # Template Files
