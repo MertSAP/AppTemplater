@@ -1,6 +1,6 @@
 # Background
 
-AppTemplater is an SAP CAP Application that allows Developers to jumpstart their projects by defining and modelling Service/Applications via a Fiori Interface. Through the User Interface the following aspects of a Service/Application can be modelled:
+AppTemplater is a SAP Cloud Application Programming Model(CAP) Application that allows Developers to jumpstart their projects by defining and modelling Service/Applications via a Fiori Interface. Through the User Interface the following aspects of a Service/Application can be modelled:
 
 * Entities - Both Master Data and Managed
   * The Fields of an Entity including
@@ -34,11 +34,10 @@ A two step process with AppTemplater and CAPGEN has been used because:
 
 # Getting Started
  ```
-mkdir AppTemplator
-cd AppTemplator
 git clone https://github.com/MertSAP/AppTemplater.git
-npm install
-cds watch
+cd AppTemplater
+cds deploy --to sql
+cds serve
  ```
 # Template Files
 
