@@ -447,7 +447,7 @@ class AppTemplaterService extends cds.ApplicationService {
         }
 
     })
-
+    
     this.on('prefillLabel', async (req) => {
       const fields = await SELECT.from(req.subject)
       if (
@@ -462,6 +462,22 @@ class AppTemplaterService extends cds.ApplicationService {
         })
       }
     })
+
+    this.on('ActionParamPrefillLabel', async (req) => {
+      const fields = await SELECT.from(req.subject)
+      if (
+        fields[0].ActionParameterLabel === '' ||
+        fields[0].ActionParameterLabel == null
+      ) {
+        const labelHelper = new GeneralHelpers()
+        await UPDATE(req.subject).with({
+          ActionParameterLabel: labelHelper.getLabel(
+            fields[0].ActionParameterTechnicalName
+          )
+        })
+      }
+    })
+
 
     return super.init()
   }

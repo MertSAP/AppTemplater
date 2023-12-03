@@ -550,6 +550,11 @@ annotate AppTemplaterService.ActionParameter with @UI: {
 
   ],
   LineItem           : [
+     {
+      $Type : 'UI.DataFieldForAction',
+      Action: 'AppTemplaterService.ActionParamPrefillLabel',
+      Label : '{i18n>Action-ActionPrefillLabel}'
+    },
     {Value: ActionParameterTechnicalName},
     {Value: ActionParameterLabel},
     {Value: ActionParameterType_TypeCode},

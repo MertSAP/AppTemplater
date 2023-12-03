@@ -5,7 +5,6 @@ annotate schema.Service  {
     ServiceUUID  @title:  '{i18n>Service-ServiceUUID}';
     ServiceTechnicalName  @title:  '{i18n>Service-ServiceTechnicalName}';
     ServiceName  @title:  '{i18n>Service-ServiceName}';
-    ServiceNamePlural  @title:  '{i18n>Service-ServiceNamePlural}';
     ServiceNamespace  @title:  '{i18n>Service-ServiceNamespace}';
 }
 annotate schema.Association  {
@@ -47,7 +46,6 @@ annotate schema.Field  {
     FieldisKey  @title:  '{i18n>Field-FieldisKey}';
     FieldLineDisplay  @title:  '{i18n>Field-FieldLineDisplay}';
     FieldDetailDisplay  @title:  '{i18n>Field-FieldDetailDisplay}';
-    FieldReadOnly  @title:  '{i18n>Field-FieldReadOnly}';
     FieldisSelectionField  @title:  '{i18n>Field-FieldisSelectionField}';
     FieldSortOrder  @title:  '{i18n>Field-FieldSortOrder}';
     FieldVirtual @title : '{i18n>Field-FieldVirtual}';
@@ -93,7 +91,6 @@ annotate schema.ServiceRole {
     RoleTechnicalName  @title:  '{i18n>Role-RoleTechnicalName}';
     RoleLabel  @title:  '{i18n>Role-RoleLabel}';
     RoleLocalUser  @title:  '{i18n>Role-RoleLocalUser}';
-
     RoleLocalPassword  @title:  '{i18n>Role-RoleLocalPassword}';
 }
 

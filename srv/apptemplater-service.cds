@@ -29,6 +29,11 @@ service AppTemplaterService @(path: '/processor') {
 
     };
 
+      entity ActionParameter            as projection on my.ActionParameter actions {
+        action ActionParamPrefillLabel();
+
+    };
+
     entity Field             as projection on my.Field actions {
         action prefillLabel();
     };

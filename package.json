@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A CAP App for Templating Applications",
   "repository": "https://github.com/MertSAP/AppTemplater",
-  "license": "UNLICENSED",
+  "license": "Apache License",
   "private": true,
   "dependencies": {
     "@sap/cds": ">=6.7.0",

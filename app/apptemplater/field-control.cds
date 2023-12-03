@@ -8,6 +8,10 @@ annotate AppTemplaterService.Action with @() actions {
     ActionPrefillLabel                        @(Common.SideEffects.TargetProperties: ['in/ActionLabel'], );
 }
 
+annotate AppTemplaterService.ActionParameter with @() actions {
+    ActionParamPrefillLabel                        @(Common.SideEffects.TargetProperties: ['in/ActionParameterLabel'], );
+}
+
 annotate AppTemplaterService.Facet with @() actions {
     FacetPrefillLabel                        @(Common.SideEffects.TargetProperties: ['in/FacetLabel'], );
 }
