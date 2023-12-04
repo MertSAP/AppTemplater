@@ -31,6 +31,8 @@ A two step process with AppTemplater and CAPGEN has been used because:
  + AppTemplater's terminology is very SAP CAP/RAP specific but this tool could be used to model an application in any technology
  + It allows other generators to be developed by the community such as using the JSON to generate a RAP Application without the need to change AppTemplater
  + The JSON file can be easily shared between developers 
+# Demo
+https://www.youtube.com/watch?v=mF02MeVATZw
 
 # Getting Started
  ```
